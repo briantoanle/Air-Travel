@@ -33,7 +33,7 @@ def loadData(airportFile, flightFile):
                 allFlights[airportName] = flightList
                 #print(flightList)
             else:
-                allFlights[airportName].append([flight])
+                allFlights[airportName].append(flight)
         #print(allFlights)
         # need flightNo, origin, destination
                 # print(l2)
@@ -66,6 +66,7 @@ def loadData(airportFile, flightFile):
         return False
 
 
+
 def getAirportByCode(code):
     for ap in allAirports:
         # print(ap)
@@ -75,11 +76,19 @@ def getAirportByCode(code):
     return None
 
 def findAllCityFlights(city):
-    templist = []
+    tempList = []
+    for key, value in allFlights.items():
+        for i in value:
+            print(i.getOrigin().getCity())
+            if i.getOrigin().getCity() == city or i.getDestination().getCity() == city:
+                tempList.append(i)
+    return tempList
 
+def findAllCountry
 
 def main():
     print("hello world")
+    loadData('airports.txt', 'flights.txt')
     #airport1 = Airport("ATL", "Atlanta", "USA")
     #airport2 = Airport("EWR", "New Jersey", "USA")
     #print(airport1)
@@ -88,6 +97,11 @@ def main():
     #ai = getAirportByCode('ATL')
     #print("The object airport that I want to get is:", ai)
     #print(allFlights['ATL'])
+
+    # for row in allFlights:
+    #    for i in allFlights[row]:
+    #        j=0
+
 
 
 

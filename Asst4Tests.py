@@ -37,11 +37,6 @@ t1 = f1.getFlightNumber() == "ABC123" and f1.getOrigin() == a1 and f1.getDestina
 t2 = f1 != f2 and f1 == f3
 t3 = equals("Flight: ABC123 from London to Athens {international}", f1.__repr__()) and equals("Flight: BCS101 from Albuquerque to Omaha {domestic}", f2.__repr__())
 t4 = not(f1.isDomesticFlight()) and f2.isDomesticFlight()
-#print(f1!=f2)
-print(equals("Flight: ABC123 from London to Athens {international}", f1.__repr__()))
-print(equals("Flight: BCS101 from Albuquerque to Omaha {domestic}", f2.__repr__()))
-print("Flight: BCS101 from Albuquerque to Omaha {domestic}")
-print(f2.__repr__())
 if t1 and t2 and t3 and t4:
     print("Test 2 Passed. (Flight methods)")
 else:
@@ -59,7 +54,6 @@ try:
 except TypeError as e:
     if e.__str__().strip().lower() == "the origin and destination must be airport objects":
         t3 = True
-
 if t1 and t2 and t3:
     print("Test 3 Passed. (Exceptions)")
 else:
@@ -94,6 +88,7 @@ else:
 
 cf = findAllCityFlights("Toronto")
 cfs = ""
+
 for f in cf:
     cfs += f.getFlightNumber() + " "
 t1 = isinstance(cf,list) and len(cf) == 13
@@ -136,7 +131,6 @@ f1 = findFlightBetween(getAirportByCode("PVG"), getAirportByCode("YOW"))
 f2 = findFlightBetween(getAirportByCode("LAX"), getAirportByCode("DTW"))
 t1 = equals(f1, "Direct Flight: PVG to YOW")
 t2 = f2 == -1
-
 if t1 and t2:
     print("Test 8 Passed. (findFlightBetween())")
 else:
@@ -169,6 +163,5 @@ if f1 == t2 and f2 == t1 and t3 == -1:
     print("Test 10 Passed. (findReturnFlight())")
 else:
     print("Test 10 Failed. (findReturnFlight())")
-
 
 

@@ -17,16 +17,15 @@ class Flight:
     def __repr__(self):
         domFlight = self.isDomesticFlight()
         if domFlight:
-            return repr(self._flightNo + f' {self._origin} to {self._destination}' + f' {{domestic}}')
+            return 'Flight: ' + self._flightNo + f' from {self._origin.getCity()} to {self._destination.getCity()}' + f' {{domestic}}'
         else:
-            return repr(self._flightNo + f' {self._origin} to {self._destination}' + f' {{international}}')
+            return 'Flight: ' + self._flightNo + f' from {self._origin.getCity()} to {self._destination.getCity()}' + f' {{international}}'
 
     def __eq__(self, other):
         # to be considered the same flight:
         # flight's origin and destination must be the same
         #print('origin',self.getOrigin() == other.getOrigin())
         #print('destination',self.getDestination() == other.getDestination())
-        print('ahsdlasd')
         if self.getOrigin() == other.getOrigin() and self.getDestination() == other.getDestination():
             return True
 
