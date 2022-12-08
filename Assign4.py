@@ -28,13 +28,24 @@ def loadData(airportFile, flightFile):
             #print(airportList[i][0])
             #flightDict[]
             airportName = airportList[i][1]
+
             if airportName not in allFlights:
                 flightList = [flight]
                 allFlights[airportName] = flightList
-                #print(flightList)
+
+
             else:
-                allFlights[airportName].append(flight)
+
+                # added this so flights wouldn't duplicate
+                if flight not in allFlights[airportName]:
+                    allFlights[airportName].append(flight)
+
+
+
+
+
         #print(allFlights)
+
         # need flightNo, origin, destination
                 # print(l2)
 
@@ -78,16 +89,49 @@ def getAirportByCode(code):
 def findAllCityFlights(city):
     tempList = []
     for key, value in allFlights.items():
+
         for i in value:
-            print(i.getOrigin().getCity())
+            #print(i.getOrigin().getCity())
             if i.getOrigin().getCity() == city or i.getDestination().getCity() == city:
+                tempList.append(i)
+
+    return tempList
+
+# lelele
+def findAllCountryFlights(country):
+    tempList = []
+    for key, value in allFlights.items():
+        for i in value:
+            #print(i)
+            #print(i.getOrigin().getCountry())
+            #print(i.getOrigin().getCountry())
+            if i.getOrigin().getCountry() == country or i.getDestination().getCountry() == country:
                 tempList.append(i)
     return tempList
 
-def findAllCountry
+def findFlightBetween(origAirport,destAirport):
+    for key, value in allFlights.items():
 
+        for i in value:
+            print(i)
+            #print(i.getOrigin())
+            #print(origAirport,destAirport)
+            if i.getOrigin() == origAirport and i.getDestination() == destAirport:
+                #print(origAirport,destAirport)
+                return 'Direct Flight: ' + str(origAirport.getCode()) + ' to ' + str(destAirport.getCode())
+
+            else:
+                return -1
+            # if there is no direct flight, find single hop
+            # 2 flights orig-transfer transfer-destination
+            # create and return a set of all possible transfer airports
+            # can only
+
+
+def findReturnFlight(firstFlight):
+    print(allFlights['YYZ'][1])
 def main():
-    print("hello world")
+    #print("hello world")
     loadData('airports.txt', 'flights.txt')
     #airport1 = Airport("ATL", "Atlanta", "USA")
     #airport2 = Airport("EWR", "New Jersey", "USA")
@@ -101,7 +145,10 @@ def main():
     # for row in allFlights:
     #    for i in allFlights[row]:
     #        j=0
+    #print(findAllCountryFlights('United States'))
+    #print(findFlightBetween(getAirportByCode("LAX"), getAirportByCode("DTW")))
 
+    findReturnFlight(
 
 
 
