@@ -13,10 +13,10 @@ def loadData(airportFile, flightFile):
                 l1 = line.split(',')
                 for i in range(len(l1)):
                     l1[i] = l1[i].strip()
-                # print(l1)
+
                 airObject = Airport(l1[0], l1[2], l1[1])
                 allAirports.append(airObject)
-        # print(allAirports)
+
         airportList = []
 
         with open(flightFile, 'r') as t:
@@ -26,30 +26,20 @@ def loadData(airportFile, flightFile):
                     l2[i] = l2[i].strip()
                 airportList.append(l2)
 
-        # count = 0
+
         for i in range(len(airportList)):
-            # count += 1
+
             flight = Flight(airportList[i][0], getAirportByCode(airportList[i][1]), getAirportByCode(airportList[i][2]))
-            # print(airportList[i][0])
-            # flightDict[]
+
             airportName = airportList[i][1]
-            #print(airportName, flight)
+
             if airportName not in allFlights:
                 flightList = [flight]
                 allFlights[airportName] = flightList
             else:
 
-                # added this so flights wouldn't duplicate
-                #if flight not in allFlights[airportName]:
                 allFlights[airportName].append(flight)
 
-                #else:
-                #print("HERE HERE HERE ONCE!", flight)
-
-        # print(allFlights)
-
-        # need flightNo, origin, destination
-        # print(l2)
 
         # to create a flight you need 3 things:
         # 1. Flight number, you already have "XJ595
@@ -104,44 +94,67 @@ def findAllCountryFlights(country):
     tempList = []
     for key, value in allFlights.items():
         for i in value:
-            # print(i)
-            # print(i.getOrigin().getCountry())
-            # print(i.getOrigin().getCountry())
+
             if i.getOrigin().getCountry() == country or i.getDestination().getCountry() == country:
                 tempList.append(i)
     return tempList
 
 
 def findFlightBetween(origAirport, destAirport):
+
     for key, value in allFlights.items():
 
         for i in value:
-            print(i)
-            # print(i.getOrigin())
-            # print(origAirport,destAirport)
+            #print(i)
+
             if i.getOrigin() == origAirport and i.getDestination() == destAirport:
                 # print(origAirport,destAirport)
                 return 'Direct Flight: ' + str(origAirport.getCode()) + ' to ' + str(destAirport.getCode())
+    nl = []
+    transitSet = set()
+    for key, value in allFlights.items():
 
-            else:
-                return -1
-            # if there is no direct flight, find single hop
-            # 2 flights orig-transfer transfer-destination
-            # create and return a set of all possible transfer airports
-            # can only
+        for i in value:
+
+            if i.getOrigin() == origAirport:
+
+                transit = i.getDestination()
+                nl.append(transit)
+                #`print(transit)
+
+        for i in nl:
+            anotherValue = allFlights[i.getCode()]
+            for j in anotherValue:
+
+                if i == j.getOrigin() and j.getDestination() == destAirport:
+
+                    #print(i.getCode())
+                    transitSet.add(i.getCode())
+
+
+    if len(transitSet) > 0:
+        return transitSet
+    else:
+        return -1
+
+
 
 
 def findReturnFlight(firstFlight):
-    print(allFlights['YYZ'][1])
+    #print(firstFlight)
+    #print(firstFlight.getOrigin())
+    for key, value in allFlights.items():
+        for i in value:
+            if firstFlight.getDestination() == i.getOrigin() and firstFlight.getOrigin() == i.getDestination():
+                return i
 
-
+    else:
+        return -1
+'''
 def main():
-    # print("hello world")
+    #print("hello world")
     loadData('airports.txt', 'flights.txt')
-    total = 0
-    for i in allFlights:
-        total += len(allFlights[i])
-    print(total)
+
 
     # airport1 = Airport("ATL", "Atlanta", "USA")
     # airport2 = Airport("EWR", "New Jersey", "USA")
@@ -156,9 +169,17 @@ def main():
     #    for i in allFlights[row]:
     #        j=0
     # print(findAllCountryFlights('United States'))
-    # print(findFlightBetween(getAirportByCode("LAX"), getAirportByCode("DTW")))
-
+    #print(findFlightBetween(getAirportByCode("YYZ"), getAirportByCode("CDG")))
+    #print(getAirportByCode('PVG'))
+    #print(getAirportByCode('DXB'))
+    #print(findFlightBetween(getAirportByCode("PVG"), getAirportByCode("DXB")))
+    #print(allFlights['PVG'])
+    #for f in allFlights['PVG']:
+        #print(f)
+    #for f in allFlights['ICN']:
+        #print(f)
     # findReturnFlight(
-
-
-#main()
+    #print(findFlightBetween(getAirportByCode("PVG"), getAirportByCode("DXB")))
+    print(findReturnFlight(allFlights["BOG"][1]))
+main()
+'''

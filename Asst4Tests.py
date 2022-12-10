@@ -66,7 +66,7 @@ t1 = loadData("airports.txt", "flights.txt")
 total = 0
 for i in allFlights:
     total += len(allFlights[i])
-print(total)
+
 if t1 and len(allAirports) == 37 and total == 146:
     print("Test 4 Passed. (loadData())")
 else:
@@ -124,7 +124,7 @@ if t1 and t2:
 else:
     print("Test 7 Failed. (findAllCountryFlights())")
 
-'''
+
 # --------------- Test 8 - findFlightBetween() ---------------
 
 f1 = findFlightBetween(getAirportByCode("PVG"), getAirportByCode("YOW"))
@@ -164,4 +164,4 @@ if f1 == t2 and f2 == t1 and t3 == -1:
 else:
     print("Test 10 Failed. (findReturnFlight())")
 
-'''
+
